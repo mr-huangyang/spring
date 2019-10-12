@@ -576,6 +576,7 @@ public class SqlSessionFactoryBean
     }
 
     targetConfiguration.setEnvironment(new Environment(this.environment,
+        //## 替换默认的 transactionFactory 达到由spring 提供 connection 的目的 ##
         this.transactionFactory == null ? new SpringManagedTransactionFactory() : this.transactionFactory,
         this.dataSource));
 

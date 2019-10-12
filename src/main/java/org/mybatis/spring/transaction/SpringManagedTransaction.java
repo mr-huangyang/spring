@@ -38,6 +38,8 @@ import org.springframework.transaction.support.TransactionSynchronizationManager
  * <p>
  * If it is not it will behave like {@code JdbcTransaction}.
  *
+ *
+ *
  * @author Hunter Presnall
  * @author Eduardo Macarron
  */
@@ -77,6 +79,8 @@ public class SpringManagedTransaction implements Transaction {
    * false and will always call commit/rollback so we need to no-op that calls.
    */
   private void openConnection() throws SQLException {
+
+    //通过spring  transaction manager 获取 connection
     this.connection = DataSourceUtils.getConnection(this.dataSource);
     this.autoCommit = this.connection.getAutoCommit();
     this.isConnectionTransactional = DataSourceUtils.isConnectionTransactional(this.connection, this.dataSource);
