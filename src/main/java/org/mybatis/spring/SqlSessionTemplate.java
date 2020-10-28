@@ -79,6 +79,7 @@ public class SqlSessionTemplate implements SqlSession, DisposableBean {
 
   private final ExecutorType executorType;
 
+  //一个代理对象，设置事物
   private final SqlSession sqlSessionProxy;
 
   private final PersistenceExceptionTranslator exceptionTranslator;
@@ -130,7 +131,7 @@ public class SqlSessionTemplate implements SqlSession, DisposableBean {
     this.executorType = executorType;
     this.exceptionTranslator = exceptionTranslator;
 
-    //生成一个代理对象，
+    //#oy: 生成一个代理对象，
     this.sqlSessionProxy = (SqlSession) newProxyInstance(SqlSessionFactory.class.getClassLoader(),
         new Class[] { SqlSession.class }, new SqlSessionInterceptor());
   }
@@ -312,6 +313,7 @@ public class SqlSessionTemplate implements SqlSession, DisposableBean {
    */
   @Override
   public <T> T getMapper(Class<T> type) {
+    //#oy?: mybatis 每次会
     return getConfiguration().getMapper(type, this);
   }
 
@@ -425,7 +427,7 @@ public class SqlSessionTemplate implements SqlSession, DisposableBean {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
-      //调用SqlSessionUtil.getSqlSession 获取在spring transaction manager 注册的 sqlsession
+      //#oy: 调用SqlSessionUtil.getSqlSession 获取在spring transaction manager 注册的 sqlsession
       SqlSession sqlSession = getSqlSession(SqlSessionTemplate.this.sqlSessionFactory,
           SqlSessionTemplate.this.executorType, SqlSessionTemplate.this.exceptionTranslator);
       try {

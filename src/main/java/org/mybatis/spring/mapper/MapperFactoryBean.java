@@ -92,6 +92,8 @@ public class MapperFactoryBean<T> extends SqlSessionDaoSupport implements Factor
    */
   @Override
   public T getObject() throws Exception {
+    //#oy: mapper 变成单例对象，此对象绑定了sql session template 单例，底层调用委托给 MapperProxy[拦截器]
+    //返回的session 是 SqlSessionTemplate对象
     return getSqlSession().getMapper(this.mapperInterface);
   }
 
