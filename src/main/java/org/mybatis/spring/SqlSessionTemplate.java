@@ -428,8 +428,7 @@ public class SqlSessionTemplate implements SqlSession, DisposableBean {
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
       //#oy: 调用SqlSessionUtil.getSqlSession 获取在spring transaction manager 注册的 sqlsession
-      SqlSession sqlSession = getSqlSession(SqlSessionTemplate.this.sqlSessionFactory,
-          SqlSessionTemplate.this.executorType, SqlSessionTemplate.this.exceptionTranslator);
+      SqlSession sqlSession = getSqlSession(SqlSessionTemplate.this.sqlSessionFactory, SqlSessionTemplate.this.executorType, SqlSessionTemplate.this.exceptionTranslator);
       try {
         Object result = method.invoke(sqlSession, args);
         if (!isSqlSessionTransactional(sqlSession, SqlSessionTemplate.this.sqlSessionFactory)) {
