@@ -79,7 +79,7 @@ public class SqlSessionTemplate implements SqlSession, DisposableBean {
 
   private final ExecutorType executorType;
 
-  //一个代理对象，设置事物
+  //一个代理对象，减少模板代码
   private final SqlSession sqlSessionProxy;
 
   private final PersistenceExceptionTranslator exceptionTranslator;
